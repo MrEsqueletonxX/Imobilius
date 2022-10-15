@@ -2,6 +2,7 @@ package br.com.imobilius.controller.DTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import br.com.imobilius.model.Categoria;
@@ -51,6 +52,12 @@ public class ImoveisDTO {
 				.map(ImoveisDTO::new)
 				.collect(Collectors.toList());
 	}
+	
+//	public static Optional<ImoveisDTO> converterOptional(List<Imoveis> imoveis){
+//		return imoveis.stream()
+//				.map(ImoveisDTO::new)
+//				.collect(Collectors.toList());
+//	}
 	
 	public ImoveisDTO converterImoveis(Imoveis imoveis) {
 		return new ImoveisDTO(imoveis);

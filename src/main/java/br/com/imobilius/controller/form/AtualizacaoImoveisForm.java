@@ -1,29 +1,53 @@
 package br.com.imobilius.controller.form;
 
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
 
 import br.com.imobilius.model.Categoria;
 import br.com.imobilius.model.Imoveis;
+import br.com.imobilius.repository.ImoveisRepository;
 
-public class ImoveisForm {
+public class AtualizacaoImoveisForm {
+	@NotNull
 	private Categoria categoria;
+	@NotNull
 	private String nomeRua;
+	@NotNull
 	private int numeroImovel;
 	private String complemento;
+	@NotNull
 	private String bairro;
+	@NotNull
 	private String zona;
+	@NotNull
 	private int quartos;
+	@NotNull
 	private int banheiros;
+	@NotNull
 	private boolean garagem;
-	private float areaTotal; 
+	@NotNull
+	private float areaTotal;
+	@NotNull
 	private String tipoAquisicao;
+	@NotNull
 	private String statusImovel;
+	@NotNull
 	private float valor;
-	private LocalDateTime dataCriacao = LocalDateTime.now();
 	
-	public Imoveis converterImoveisForm() {
-		return new Imoveis(categoria, nomeRua, numeroImovel, complemento, bairro, zona,
-				quartos, banheiros, garagem, areaTotal, tipoAquisicao, statusImovel, valor, dataCriacao);
+	public Imoveis atualizar(Long idImoveis, ImoveisRepository imoveisRepo) {
+		Imoveis imoveis = imoveisRepo.getOne(idImoveis);
+		imoveis.setNomeRua(nomeRua);
+		imoveis.setNumeroImovel(numeroImovel);
+		imoveis.setComplemento(complemento);
+		imoveis.setBairro(bairro);
+		imoveis.setZona(zona);
+		imoveis.setQuartos(quartos);
+		imoveis.setBanheiros(banheiros);
+		imoveis.setGaragem(garagem);
+		imoveis.setAreaTotal(areaTotal);
+		imoveis.setTipoAquisicao(tipoAquisicao);
+		imoveis.setStatusImovel(statusImovel);
+		imoveis.setValor(valor);
+		return imoveis;
 	}
 
 	public Categoria getCategoria() {

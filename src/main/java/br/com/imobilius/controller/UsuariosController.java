@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.imobilius.controller.DTO.UsuariosDTO;
 import br.com.imobilius.model.Usuarios;
 import br.com.imobilius.repository.UsuariosRepository;
 
@@ -20,11 +21,12 @@ public class UsuariosController {
 	UsuariosRepository userRepo;
 	
 	@GetMapping("/listAll")
-	public List<Usuarios> listAll() {
-		return this.userRepo.findAll();
+	public List<UsuariosDTO> listAll() {
+		List<Usuarios> listUsuarios = userRepo.findAll();
+		return UsuariosDTO.converterLista(listUsuarios);
 	}
 	
-	@PostMapping("/post")
+	@PostMapping("/cadastro")
 	public Usuarios postUser(@RequestBody Usuarios user) {
 		return this.userRepo.save(user);
 	}

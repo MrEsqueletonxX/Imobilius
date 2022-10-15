@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import br.com.imobilius.controller.DTO.ImoveisDTO;
 
@@ -21,50 +22,63 @@ public class Imoveis {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "cod_imovel")
+	@NotNull
 	private Long idImovel;
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "cod_categoria")
 	private Categoria categoria;
-
-//	@ManyToOne
-//	@Column(name = "cod_categoria")
-//	private Categoria categoria;
+	
+//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//	@JoinColumn(name = "cod_user")
+//	private Usuarios usuario;
 
 	@Column(name = "nome_rua")
+	@NotNull
 	private String nomeRua;
 
 	@Column(name = "numero_imovel")
+	@NotNull
 	private int numeroImovel;
 
 	private String complemento;
+	@NotNull
 	private String bairro;
+	@NotNull
 	private String zona;
+	@NotNull
 	private int quartos;
+	@NotNull
 	private int banheiros;
+	@NotNull
 	private boolean garagem;
 
 	@Column(name = "area_total")
+	@NotNull
 	private float areaTotal;
 
 	@Column(name = "tipo_aquisicao")
+	@NotNull
 	private String tipoAquisicao;
 
 	@Column(name = "status_imovel")
+	@NotNull
 	private String statusImovel;
-	
+
+	@NotNull
 	private float valor;
-	
+
 	@Column(name = "data_criacao")
+	@NotNull
 	private LocalDateTime dataCriacao = LocalDateTime.now();
-	
+
 	public Imoveis() {
-		
+
 	}
-	
-	public Imoveis(Categoria categoria, String nomeRua, int numeroImovel, String complemento,
-			String bairro, String zona, int quartos, int banheiros, boolean garagem, float areaTotal,
-			String tipoAquisicao, String statusImovel, float valor) {
+
+	public Imoveis(Categoria categoria, String nomeRua, int numeroImovel, String complemento, String bairro,
+			String zona, int quartos, int banheiros, boolean garagem, float areaTotal, String tipoAquisicao,
+			String statusImovel, float valor, LocalDateTime dataCriacao) {
 		super();
 		this.categoria = categoria;
 		this.nomeRua = nomeRua;
@@ -79,6 +93,7 @@ public class Imoveis {
 		this.tipoAquisicao = tipoAquisicao;
 		this.statusImovel = statusImovel;
 		this.valor = valor;
+		this.dataCriacao = dataCriacao;
 	}
 
 	public Imoveis(ImoveisDTO imoveisDTO) {
