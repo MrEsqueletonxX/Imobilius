@@ -30,8 +30,10 @@ public interface ImoveisRepository extends JpaRepository<Imoveis,Long> {
 	@Query(value = "select * from ImoveisApartamento", nativeQuery = true)
 	public List<ImoveisApartamento> listImoveisApartamento();
 	
-	@Query(value = "select * from Imoveis where status_imovel = 'Vendido'", nativeQuery = true)
+	@Query(value = "select * from Imoveis where status_imovel = 'Vendido' and tipo_aquisicao = 'Venda'", nativeQuery = true)
 	public List<Imoveis> findImoveisVendidos();
+	
+	//@Query(value = "select * from ImoveisView where titulo = Casa and ", nativeQuery = true)
 	
 	@Query(value = "select * from Imoveis where status_imovel = 'Disponível' and tipo_aquisicao = 'Venda'", nativeQuery = true)
 	public List<Imoveis> findImoveisVendendo();

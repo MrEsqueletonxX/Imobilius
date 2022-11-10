@@ -1,20 +1,14 @@
 package br.com.imobilius.model;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table
@@ -25,8 +19,11 @@ public class Usuarios {
 	private Long id;
 //	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	private List<Imoveis> imoveis;
-	private String username;
-	private String senha;
+//	@ManyToMany(fetch = FetchType.EAGER)
+//    private List<Perfil> perfis = new ArrayList<>();
+//	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
+	private String nome;
+	private String password;
 	private String email;
 	@Column(name = "data_criacao")
 	private LocalDateTime dataCriacao = LocalDateTime.now();
@@ -35,11 +32,16 @@ public class Usuarios {
 
 	}
 
-	public Usuarios(String username, String senha, String email) {
+	public Usuarios(String nome, String senha, String email) {
 		super();
-		this.username = username;
-		this.senha = senha;
+		this.nome = nome;
+		this.password = senha;
 		this.email = email;
+	}
+	
+	public Usuarios(String email, String senha) {
+	    this.email = email;
+	    this.password = senha;
 	}
 
 	public Long getId() {
@@ -50,20 +52,20 @@ public class Usuarios {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public String getSenha() {
-		return senha;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getEmail() {
@@ -82,13 +84,13 @@ public class Usuarios {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public List<Imoveis> getImoveis() {
-		return imoveis;
-	}
-
-	public void setImoveis(List<Imoveis> imoveis) {
-		this.imoveis = imoveis;
-	}
+//	public List<Imoveis> getImoveis() {
+//		return imoveis;
+//	}
+//
+//	public void setImoveis(List<Imoveis> imoveis) {
+//		this.imoveis = imoveis;
+//	}
 
 	@Override
 	public int hashCode() {

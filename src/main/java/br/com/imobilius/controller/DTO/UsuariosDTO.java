@@ -8,9 +8,9 @@ import br.com.imobilius.model.Usuarios;
 
 public class UsuariosDTO {
 	private Long id;
-	private String username;
+	private String nome;
 	private String email;
-	private LocalDateTime dataCriacao;
+	//private LocalDateTime dataCriacao;
 
 	public UsuariosDTO() {
 
@@ -18,9 +18,9 @@ public class UsuariosDTO {
 
 	public UsuariosDTO(Usuarios usuario) {
 		this.id = usuario.getId();
-		this.username = usuario.getUsername();
+		this.nome = usuario.getNome();
 		this.email = usuario.getEmail();
-		this.dataCriacao = usuario.getDataCriacao();
+		//this.dataCriacao = usuario.getDataCriacao();
 	}
 
 	public static List<UsuariosDTO> converterLista(List<Usuarios> usuarios) {
@@ -29,6 +29,10 @@ public class UsuariosDTO {
 
 	public UsuariosDTO converterImoveis(Usuarios usuario) {
 		return new UsuariosDTO(usuario);
+	}
+	
+	public Usuarios converterUsuario(Usuarios usuario) {
+	    return new Usuarios(usuario.getEmail(), usuario.getSenha());
 	}
 
 	public Long getId() {
@@ -39,12 +43,12 @@ public class UsuariosDTO {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getEmail() {
@@ -55,12 +59,12 @@ public class UsuariosDTO {
 		this.email = email;
 	}
 
-	public LocalDateTime getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(LocalDateTime dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
+//	public LocalDateTime getDataCriacao() {
+//		return dataCriacao;
+//	}
+//
+//	public void setDataCriacao(LocalDateTime dataCriacao) {
+//		this.dataCriacao = dataCriacao;
+//	}
 
 }
