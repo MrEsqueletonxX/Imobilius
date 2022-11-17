@@ -1,7 +1,7 @@
 package br.com.imobilius.controller;
 
+import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.imobilius.controller.DTO.UsuariosDTO;
 import br.com.imobilius.controller.form.AtualizacaoUsuariosForm;
@@ -38,11 +39,12 @@ public class UsuariosController {
 	
 	@PostMapping("/cadastro")
 	@Transactional
-	public ResponseEntity<Usuarios> postUser(@RequestBody @Valid UsuariosForm userForm) {
+	public ResponseEntity<UsuariosDTO> postUser(@RequestBody @Valid UsuariosForm userForm, UriComponentsBuilder uriBuilder) {
 		Usuarios usuario = userForm.converterUsuariosForm();
-	    Optional<Usuarios> user = userForm.converterUsuariosForm();
-		if()
-	    return this.userRepo.save(user);
+	    userRepo.save(usuario);
+	    
+	    URI uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
+	    return ResponseEntity.created(uri).body(new UsuariosDTO(usuario));
 	}
 	
 	@PutMapping("/atualizarInformacoes/{id}")

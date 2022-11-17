@@ -23,7 +23,7 @@ public class UsuariosDTO {
 		//this.dataCriacao = usuario.getDataCriacao();
 	}
 
-	public static List<UsuariosDTO> converterLista(List<Usuarios> usuarios) {
+    public static List<UsuariosDTO> converterLista(List<Usuarios> usuarios) {
 		return usuarios.stream().map(UsuariosDTO::new).collect(Collectors.toList());
 	}
 
@@ -32,7 +32,7 @@ public class UsuariosDTO {
 	}
 	
 	public Usuarios converterUsuario(Usuarios usuario) {
-	    return new Usuarios(usuario.getEmail(), usuario.getSenha());
+	    return new Usuarios(usuario.getEmail(), usuario.getPassword());
 	}
 
 	public Long getId() {

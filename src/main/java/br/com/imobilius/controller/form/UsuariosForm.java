@@ -1,7 +1,5 @@
 package br.com.imobilius.controller.form;
 
-import java.util.Optional;
-
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
@@ -9,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import br.com.imobilius.controller.DTO.UsuariosDTO;
 import br.com.imobilius.model.Usuarios;
 
 @Table(
@@ -37,11 +36,6 @@ public class UsuariosForm {
 	public Usuarios converterUsuariosFormLogin() {
 	    return new Usuarios(email, password);
 	}
-	
-	public Optional<Usuarios> converterUsuariosFormOptional() {
-        Optional<Usuarios> usuarios = new Usuarios(nome, password, email);
-        
-    }
 
 	public String getNome() {
 		return nome;

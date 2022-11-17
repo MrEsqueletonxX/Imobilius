@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import br.com.imobilius.controller.DTO.UsuariosDTO;
+
 @Entity
 @Table
 public class Usuarios {
@@ -19,9 +21,6 @@ public class Usuarios {
 	private Long id;
 //	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //	private List<Imoveis> imoveis;
-//	@ManyToMany(fetch = FetchType.EAGER)
-//    private List<Perfil> perfis = new ArrayList<>();
-//	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 	private String nome;
 	private String password;
 	private String email;
@@ -32,16 +31,22 @@ public class Usuarios {
 
 	}
 
-	public Usuarios(String nome, String senha, String email) {
+	public Usuarios(String nome, String password, String email) {
 		super();
 		this.nome = nome;
-		this.password = senha;
+		this.password = password;
 		this.email = email;
 	}
 	
-	public Usuarios(String email, String senha) {
+	public Usuarios(String email, String password) {
 	    this.email = email;
-	    this.password = senha;
+	    this.password = password;
+	}
+	
+	public Usuarios(UsuariosDTO usuario) {
+	    this.id = usuario.getId();
+	    this.nome = usuario.getNome();
+	    this.email = usuario.getEmail();
 	}
 
 	public Long getId() {

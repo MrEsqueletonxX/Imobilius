@@ -24,7 +24,7 @@ public class LoginController {
     @Autowired
     private UsuariosRepository userRepo;
     
-    @PostMapping("/api/login")
+    @PostMapping("/login")
     @Transactional
     @CrossOrigin("*")
     public ResponseEntity<Usuarios> login(@RequestBody @Valid UsuariosFormLogin userForm) {

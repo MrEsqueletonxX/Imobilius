@@ -1,13 +1,13 @@
 package br.com.imobilius.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,9 +22,19 @@ import br.com.imobilius.controller.form.AtualizacaoImoveisForm;
 import br.com.imobilius.controller.form.ImoveisForm;
 import br.com.imobilius.model.Imoveis;
 import br.com.imobilius.model.interfaces.ImoveisApartamento;
+import br.com.imobilius.model.interfaces.ImoveisApartamentoAlugando;
+import br.com.imobilius.model.interfaces.ImoveisApartamentoAluguelDisponivel;
+import br.com.imobilius.model.interfaces.ImoveisApartamentoVendendo;
+import br.com.imobilius.model.interfaces.ImoveisApartamentoVendidos;
 import br.com.imobilius.model.interfaces.ImoveisCasa;
+import br.com.imobilius.model.interfaces.ImoveisCasaAlugando;
+import br.com.imobilius.model.interfaces.ImoveisCasaAluguelDisponivel;
+import br.com.imobilius.model.interfaces.ImoveisCasaVendendo;
+import br.com.imobilius.model.interfaces.ImoveisCasaVendidos;
 import br.com.imobilius.model.interfaces.ImoveisView;
+import br.com.imobilius.model.interfaces.MediaValorApartamentosPorBairro;
 import br.com.imobilius.model.interfaces.MediaValorBairro;
+import br.com.imobilius.model.interfaces.MediaValorCasasPorBairro;
 import br.com.imobilius.model.interfaces.MediaValorZona;
 import br.com.imobilius.model.interfaces.QuantidadePorBairro;
 import br.com.imobilius.model.interfaces.QuantidadePorZona;
@@ -32,12 +42,14 @@ import br.com.imobilius.repository.ImoveisRepository;
 
 @RestController
 @RequestMapping("/imoveis")
+@CrossOrigin("*")
 public class ImoveisController {
 	
 	@Autowired
-	ImoveisRepository imoveisRepo;
+	private ImoveisRepository imoveisRepo;
 	
 	@GetMapping("/listAll")
+	@CrossOrigin("*")
 	public List<ImoveisDTO> listAll() {
 		List<Imoveis> listImoveis = imoveisRepo.findAll();
 		return ImoveisDTO.converterLista(listImoveis);
@@ -115,11 +127,35 @@ public class ImoveisController {
 		return ImoveisDTO.converterLista(listImoveis);
 	}
 	
+	@GetMapping("/listImoveisCasaStatusVendidos")
+	public List<ImoveisCasaVendidos>  listImoveisCasaVendidos() {
+	    List<ImoveisCasaVendidos> listImoveis = imoveisRepo.findImoveisCasaVendidos();
+	    return listImoveis;
+	}
+	
+	@GetMapping("/listImoveisApartamentoStatusVendidos")
+    public List<ImoveisApartamentoVendidos>  listImoveisApartamentoVendidos() {
+        List<ImoveisApartamentoVendidos> listImoveis = imoveisRepo.findImoveisApartamentoVendidos();
+        return listImoveis;
+    }
+	
 	@GetMapping("/listImoveisStatusVendese")
 	public List<ImoveisDTO> listImoveisVendese() {
 		List<Imoveis> listImoveis = imoveisRepo.findImoveisVendendo();
 		return ImoveisDTO.converterLista(listImoveis);
 	}
+	
+	@GetMapping("/listImoveisCasaStatusVendese")
+    public List<ImoveisCasaVendendo> listImoveisCasaVendese() {
+        List<ImoveisCasaVendendo> listImoveis = imoveisRepo.findImoveisCasaVendendo();
+        return listImoveis;
+    }
+	
+	@GetMapping("/listImoveisApartamentoStatusVendese")
+    public List<ImoveisApartamentoVendendo> listImoveisApartamentoVendese() {
+        List<ImoveisApartamentoVendendo> listImoveis = imoveisRepo.findImoveisApartamentoVendendo();
+        return listImoveis;
+    }
 	
 	@GetMapping("/listImoveisStatusAluguelDisponivel")
 	public List<ImoveisDTO> listImoveisAlugase() {
@@ -127,17 +163,53 @@ public class ImoveisController {
 		return ImoveisDTO.converterLista(listImoveis);
 	}
 	
+	@GetMapping("/listImoveisCasaStatusAluguelDisponivel")
+    public List<ImoveisCasaAluguelDisponivel> listImoveisCasaAlugase() {
+        List<ImoveisCasaAluguelDisponivel> listImoveis = imoveisRepo.findImoveisCasaAluguelDisponivel();
+        return listImoveis;
+    }
+	
+	@GetMapping("/listImoveisApartamentoStatusAluguelDisponivel")
+    public List<ImoveisApartamentoAluguelDisponivel> listImoveisApartamentoAlugase() {
+        List<ImoveisApartamentoAluguelDisponivel> listImoveis = imoveisRepo.findImoveisApartamentoAluguelDisponivel();
+        return listImoveis;
+    }
+	
 	@GetMapping("/listImoveisStatusAlugando")
 	public List<ImoveisDTO> listImoveisAlugando() {
 		List<Imoveis> listImoveis = imoveisRepo.findImoveisAluguelAlugando();
 		return ImoveisDTO.converterLista(listImoveis);
 	}
 	
+	@GetMapping("/listImoveisCasaStatusAlugando")
+    public List<ImoveisCasaAlugando> listImoveisCasaAlugando() {
+        List<ImoveisCasaAlugando> listImoveis = imoveisRepo.findImoveisCasaAluguelAlugando();
+        return listImoveis;
+    }
+	
+	@GetMapping("/listImoveisApartamentoStatusAlugando")
+    public List<ImoveisApartamentoAlugando> listImoveisApartamentoAlugando() {
+        List<ImoveisApartamentoAlugando> listImoveis = imoveisRepo.findImoveisApartamentoAluguelAlugando();
+        return listImoveis;
+    }
+	
 	@GetMapping("/mediaValorBairro")
 	public List<MediaValorBairro> mediaValorBairro() {
 		List<MediaValorBairro> listImoveis = imoveisRepo.mediaValorBairro();
 		return listImoveis;
 	}
+	
+	@GetMapping("/mediaValorCasasBairro")
+    public List<MediaValorCasasPorBairro> mediaValorCasasBairro() {
+        List<MediaValorCasasPorBairro> listImoveis = imoveisRepo.mediaValorCasasPorBairro();
+        return listImoveis;
+    }
+	
+	@GetMapping("/mediaValorApartamentosBairro")
+    public List<MediaValorApartamentosPorBairro> mediaValorApartamentosBairro() {
+        List<MediaValorApartamentosPorBairro> listImoveis = imoveisRepo.mediaValorApartamentosPorBairro();
+        return listImoveis;
+    }
 	
 	@GetMapping("/mediaValorZona")
 	public List<MediaValorZona> mediaValorZona() {
@@ -149,6 +221,12 @@ public class ImoveisController {
 	public List<ImoveisDTO> listImovelById(@PathVariable Long idImovel) {
 		List<Imoveis> listImoveis = imoveisRepo.findByIdImovel(idImovel);
 		return ImoveisDTO.converterLista(listImoveis);
+	}
+	
+	@GetMapping("/disponibilidadeImoveis")
+	public List<ImoveisDTO> listDisponibilidadeImoveisPorBairro(@RequestBody String bairro) {
+	    List<Imoveis> listImoveis = imoveisRepo.findDisponibilidadeImoveisPorBairro(bairro);
+	    return ImoveisDTO.converterLista(listImoveis);
 	}
 	
 	@PostMapping("/cadastroImovel")
